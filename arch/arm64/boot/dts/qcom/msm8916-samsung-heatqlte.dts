@@ -44,10 +44,10 @@
 		cy,core {
 			cy,name = "cyttsp4_core";
 			cy,id = "main_ttsp_core";
-			//cy,irq_gpio = <&msm_gpio 13 0x00>;
+			cy,irq_gpio = <&tlmm 13 GPIO_ACTIVE_LOW>;
 			/*cy,rst_gpio = <37>;*/
-			//cy,avdd_gpio = <&msm_gpio 73 0x00>;
-			//cy,vddo_gpio = <&msm_gpio 98 0x00>;
+			cy,avdd_gpio = <&tlmm 73 GPIO_ACTIVE_LOW>;
+			cy,vddo_gpio = <&tlmm 98 GPIO_ACTIVE_LOW>;
 
 			/* Enable cy,max_xfer_len to limit max I2C/SPI transfer length */
 			/* cy,max_xfer_len = <0x100>; */
