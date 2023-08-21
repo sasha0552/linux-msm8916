@@ -266,6 +266,15 @@ config TOUCHSCREEN_CYTTSP4_CORE
 
 	  To compile this driver as a module, choose M here.
 
+config TOUCHSCREEN_CYTTSP4_DEVTREE
+	tristate "support device tree configuration"
+	depends on TOUCHSCREEN_CYTTSP4_CORE
+	help
+	  Say Y here if the <TODO: WRITE DOCUMENTATION>.
+
+	  To compile this driver as a module, choose M here: the
+	  module will be called cyttsp4_devtree.
+
 config TOUCHSCREEN_CYTTSP4_I2C
 	tristate "support I2C bus connection"
 	depends on TOUCHSCREEN_CYTTSP4_CORE && I2C
