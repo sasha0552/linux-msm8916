@@ -27,8 +27,14 @@ static const struct cyttsp4_bus_ops cyttsp4_i2c_bus_ops = {
 	.read           = cyttsp_i2c_read_block_data,
 };
 
+static struct of_device_id cyttsp4_i2c_of_match[] = {
+	{ .compatible = "cy,cyttsp4_i2c_adapter", }, { }
+};
+MODULE_DEVICE_TABLE(of, cyttsp4_i2c_of_match);
+
 static int cyttsp4_i2c_probe(struct i2c_client *client)
 {
+	const struct of_device_id *match;
 	struct cyttsp4 *ts;
 
 	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C)) {
@@ -36,8 +42,15 @@ static int cyttsp4_i2c_probe(struct i2c_client *client)
 		return -EIO;
 	}
 
+	match = of_match_device(of_match_ptr(cyttsp4_i2c_of_match), dev);
+	if (match)
+		cyttsp4_devtree_create_and_get_pdata(dev);
+
 	ts = cyttsp4_probe(&cyttsp4_i2c_bus_ops, &client->dev, client->irq,
 			  CYTTSP4_I2C_DATA_SIZE);
+
+	if (ts && match)
+		cyttsp4_devtree_clean_pdata(dev);
 
 	return PTR_ERR_OR_ZERO(ts);
 }
@@ -59,6 +72,7 @@ static struct i2c_driver cyttsp4_i2c_driver = {
 	.driver = {
 		.name	= CYTTSP4_I2C_NAME,
 		.pm	= pm_ptr(&cyttsp4_pm_ops),
+		.of_match_table = cyttsp4_i2c_of_match,
 	},
 	.probe		= cyttsp4_i2c_probe,
 	.remove		= cyttsp4_i2c_remove,
