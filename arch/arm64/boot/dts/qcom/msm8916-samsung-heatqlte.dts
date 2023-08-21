@@ -40,27 +40,15 @@
 		interrupt-parent = <&tlmm>;
 		interrupts = <13 IRQ_TYPE_EDGE_FALLING>;
 
-		cy,adapter_id = "cyttsp4_i2c_adapter";
-		cy,core {
-			cy,name = "cyttsp4_core";
-			cy,id = "main_ttsp_core";
+		cy,core_pdata {
 			cy,irq_gpio = <&tlmm 13 GPIO_ACTIVE_LOW>;
-			/*cy,rst_gpio = <37>;*/
-			cy,avdd_gpio = <&tlmm 73 GPIO_ACTIVE_LOW>;
-			cy,vddo_gpio = <&tlmm 98 GPIO_ACTIVE_LOW>;
+			cy,rst_gpio = <&tlmm 37 GPIO_ACTIVE_LOW>;
+		};
 
-			/* Enable cy,max_xfer_len to limit max I2C/SPI transfer length */
-			/* cy,max_xfer_len = <0x100>; */
+		cy,mt_pdata {
+			cy,inp_dev_name = "sec_touchscreen";
 
-			/* CY_CORE_FLAG_POWEROFF_ON_SLEEP */
-			cy,flags = <2>;
-			cy,pname = "SM-G357FZ";
-
-			cy,mt {
-				cy,name = "cyttsp4_mt";
-				cy,inp_dev_name = "sec_touchscreen";
-				/* CY_MT_FLAG_FLIP | CY_MT_FLAG_INV_Y */
-				/*cy,flags = <0x28>;*/
+			cy,frmwrk {
 				cy,abs =
 				/* ABS_MT_POSITION_X, CY_ABS_MIN_X, CY_ABS_MAX_X, 0, 0 */
 				<0x35 0 540 0 0
