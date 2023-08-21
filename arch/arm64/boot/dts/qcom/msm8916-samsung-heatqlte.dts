@@ -20,6 +20,22 @@
 	model = "Samsung Galaxy Ace 4 (SM-G357FZ)";
 	compatible = "samsung,heatqlte", "qcom,msm8916";
 	chassis-type = "handset";
+
+	i2c-touchscreen {
+		compatible = "i2c-gpio";
+		sda-gpios = <&tlmm 18 (GPIO_ACTIVE_HIGH|GPIO_OPEN_DRAIN)>;
+		scl-gpios = <&tlmm 19 (GPIO_ACTIVE_HIGH|GPIO_OPEN_DRAIN)>;
+
+		#pinctrl-0 = <&fg_i2c_default>;
+		#pinctrl-names = "default";
+
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		touchscreen@24 {
+			compatible = "cy,cyttsp4_i2c_adapter";
+		}
+	}
 };
 
 &mpss_mem {
