@@ -21,7 +21,7 @@
 	compatible = "samsung,heatqlte", "qcom,msm8916";
 	chassis-type = "handset";
 
-	i2c_13:i2c@13 {
+	i2c-touchscreen: i2c@13 {
 		cell-index = <13>;
 		compatible = "i2c-gpio";
 		i2c-gpio-scl = <&msm_gpio 19 0x00>;
@@ -30,7 +30,7 @@
 		#address-cells = <1>;
 		#size-cells = <0>;
 
-		cyttsp4-tma445@24 {
+		touchscreen@24 {
 			compatible = "cy,cyttsp4_i2c_adapter";
 			reg = <0x24>;
 			/* GPIO 38, high-to-low edge triggered */
