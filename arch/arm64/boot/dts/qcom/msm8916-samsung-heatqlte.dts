@@ -36,6 +36,7 @@
 	touchscreen@20 {
 		compatible = "cy,cyttsp4_i2c_adapter";
 		reg = <0x24>;
+
 		interrupt-parent = <&tlmm>;
 		interrupts = <13 IRQ_TYPE_EDGE_FALLING>;
 
@@ -47,10 +48,10 @@
 		cy,core {
 			cy,name = "cyttsp4_core";
 			cy,id = "main_ttsp_core";
-			cy,irq_gpio = <&msm_gpio 13 0x00>;
+			//cy,irq_gpio = <&msm_gpio 13 0x00>;
 			/*cy,rst_gpio = <37>;*/
-			cy,avdd_gpio = <&msm_gpio 73 0x00>;
-			cy,vddo_gpio = <&msm_gpio 98 0x00>;
+			//cy,avdd_gpio = <&msm_gpio 73 0x00>;
+			//cy,vddo_gpio = <&msm_gpio 98 0x00>;
 
 			/* Enable cy,max_xfer_len to limit max I2C/SPI transfer length */
 			/* cy,max_xfer_len = <0x100>; */
