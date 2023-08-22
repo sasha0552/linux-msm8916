@@ -22,15 +22,12 @@
  *
  */
 
+#include "cyttsp4_devtree.h"
+
 #include <linux/device.h>
 #include <linux/err.h>
 #include <linux/of_device.h>
 #include <linux/slab.h>
-
-/* cyttsp */
-#include "cyttsp4_regs.h"
-#include <linux/i2c/cyttsp4_platform.h>
-
 #include <linux/of_gpio.h>
 #define ENABLE_VIRTUAL_KEYS
 
