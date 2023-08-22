@@ -20,6 +20,54 @@
 	model = "Samsung Galaxy Ace 4 (SM-G357FZ)";
 	compatible = "samsung,heatqlte", "qcom,msm8916";
 	chassis-type = "handset";
+
+	reg_tsp_vdd: regulator-tsp-vdd {
+		compatible = "regulator-fixed";
+		regulator-name = "tsp_vdd";
+		regulator-min-microvolt = <1800000>;
+		regulator-max-microvolt = <1800000>;
+		vin-supply = <&pm8916_s4>;
+
+		gpio = <&tlmm 98 GPIO_ACTIVE_HIGH>; // 8 and GPIO_ACTIVE_LOW?
+		enable-active-high;
+
+		pinctrl-0 = <&reg_tsp_io_en_default>;
+		pinctrl-names = "default";
+	};
+
+	reg_vdd_tsp: regulator-vdd-tsp {
+		compatible = "regulator-fixed";
+		regulator-name = "vdd_tsp";
+		regulator-min-microvolt = <3300000>;
+		regulator-max-microvolt = <3300000>;
+
+		gpio = <&tlmm 73 GPIO_ACTIVE_HIGH>; // GPIO_ACTIVE_LOW?
+		enable-active-high;
+
+		pinctrl-0 = <&reg_tsp_en_default>;
+		pinctrl-names = "default";
+	};
+};
+
+&blsp_i2c5 {
+	status = "okay";
+
+	touchscreen@20 {
+		compatible = "cypress,tt21000";
+
+		reg = <0x24>;
+		interrupt-parent = <&tlmm>;
+		interrupts = <13 IRQ_TYPE_EDGE_FALLING>;
+
+		vdd-supply = <&reg_vdd_tsp>;
+		vddio-supply = <&reg_tsp_vdd>;
+
+		pinctrl-0 = <&tsp_int_default>;
+		pinctrl-names = "default";
+
+		touchscreen-size-x = <540>;
+		touchscreen-size-y = <960>;
+	};
 };
 
 &mpss_mem {
@@ -30,43 +78,25 @@
 	compatible = "samsung,s6288a0";
 };
 
-&blsp_i2c5 {
-	status = "okay";
+&tlmm {
+	reg_tsp_io_en_default: reg-tsp-io-en-default-state {
+		pins = "gpio98"; // gpio8?
+		function = "gpio";
+		drive-strength = <2>;
+		bias-disable;
+	};
 
-	touchscreen@20 {
-		compatible = "cy,cyttsp4_i2c_adapter";
-		reg = <0x24>;
+	reg_tsp_en_default: reg-tsp-en-default-state {
+		pins = "gpio73";
+		function = "gpio";
+		drive-strength = <2>;
+		bias-disable;
+	};
 
-		interrupt-parent = <&tlmm>;
-		interrupts = <13 IRQ_TYPE_EDGE_FALLING>;
-
-		cy,core_pdata {
-			cy,irq_gpio = <&tlmm 13 GPIO_ACTIVE_LOW>;
-			cy,rst_gpio = <&tlmm 37 GPIO_ACTIVE_LOW>;
-		};
-
-		cy,mt_pdata {
-			cy,inp_dev_name = "sec_touchscreen";
-
-			cy,frmwrk {
-				cy,abs =
-				/* ABS_MT_POSITION_X, CY_ABS_MIN_X, CY_ABS_MAX_X, 0, 0 */
-				<0x35 0 540 0 0
-				/* ABS_MT_POSITION_Y, CY_ABS_MIN_Y, CY_ABS_MAX_Y, 0, 0 */
-				0x36 0 960 0 0
-				/* ABS_MT_PRESSURE, CY_ABS_MIN_P, CY_ABS_MAX_P, 0, 0 */
-				0x3a 0 255 0 0
-				/* CY_IGNORE_VALUE, CY_ABS_MIN_W, CY_ABS_MAX_W, 0, 0 */
-				0xffff 0 255 0 0
-				/* ABS_MT_TRACKING_ID, CY_ABS_MIN_T, CY_ABS_MAX_T, 0, 0 */
-				0x39 0 15 0 0
-				/* ABS_MT_TOUCH_MAJOR, 0, 255, 0, 0 */
-				0x30 0 255 0 0
-				/* ABS_MT_TOUCH_MINOR, 0, 255, 0, 0 */
-				0x31 0 255 0 0
-				/* ABS_MT_ORIENTATION, -128, 127, 0, 0 */
-				0x34 0xfffffed7 127 0 0>;
-			};
-		};
+	tsp_int_default: tsp-int-default-state {
+		pins = "gpio13";
+		function = "gpio";
+		drive-strength = <2>;
+		bias-disable;
 	};
 };
