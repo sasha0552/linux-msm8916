@@ -15,6 +15,7 @@
  */
 
 #include "cyttsp4_core.h"
+#include "cyttps4_devtree.h"
 
 #include <linux/i2c.h>
 #include <linux/input.h>

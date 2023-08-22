@@ -270,7 +270,7 @@ config TOUCHSCREEN_CYTTSP4_DEVTREE
 	tristate "support device tree configuration"
 	depends on TOUCHSCREEN_CYTTSP4_CORE
 	help
-	  Say Y here if the <TODO: WRITE DOCUMENTATION>.
+	  Say Y here if the (TODO: WRITE DOCUMENTATION).
 
 	  To compile this driver as a module, choose M here: the
 	  module will be called cyttsp4_devtree.
