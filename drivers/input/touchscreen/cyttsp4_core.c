@@ -2070,9 +2070,9 @@ struct cyttsp4 *cyttsp4_probe(const struct cyttsp4_bus_ops *ops,
 	cd->cpdata->ts_pinctrl = devm_pinctrl_get(cd->dev);
 	if (IS_ERR_OR_NULL(cd->cpdata->ts_pinctrl)) {
 		pr_err("[TSP] Target does not use pinctrl\n");
-		rc = PTR_ERR(cd->cpdata->ts_pinctrl);
+		//rc = PTR_ERR(cd->cpdata->ts_pinctrl);
 		cd->cpdata->ts_pinctrl = NULL;
-		goto error_pinctrl_get;
+		//goto error_pinctrl_get;
 	}
 
 	/* Call platform init function */

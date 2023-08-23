@@ -498,9 +498,9 @@ static struct cyttsp4_core_platform_data *create_and_get_core_pdata(
 	pr_info("[TSP] %s : %s: avdd=%d, vddo=%d", CYTTSP4_I2C_NAME, __func__,
 		pdata->avdd_gpio, pdata->vddo_gpio);
 
-	pdata->xres = cyttsp4_xres;
-	pdata->init = cyttsp4_init;
-	pdata->power = cyttsp4_power;
+	pdata->xres = NULL;
+	pdata->init = NULL;
+	pdata->power = NULL;
 #ifdef CYTTSP4_DETECT_HW
 	pdata->detect = cyttsp4_detect;
 #endif
