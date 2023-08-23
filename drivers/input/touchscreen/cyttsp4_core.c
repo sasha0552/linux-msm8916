@@ -17,6 +17,7 @@
 #include <linux/gpio.h>
 #include <linux/input/mt.h>
 #include <linux/interrupt.h>
+#include <linux/pinctrl/consumer.h>
 #include <linux/pm_runtime.h>
 #include <linux/sched.h>
 #include <linux/slab.h>
@@ -2065,6 +2066,15 @@ struct cyttsp4 *cyttsp4_probe(const struct cyttsp4_bus_ops *ops,
 
 	dev_set_drvdata(dev, cd);
 
+	/* Get pinctrl if target uses pinctrl */
+	cd->cpdata->ts_pinctrl = devm_pinctrl_get(cd->dev);
+	if (IS_ERR_OR_NULL(cd->cpdata->ts_pinctrl)) {
+		pr_err("[TSP] Target does not use pinctrl\n");
+		rc = PTR_ERR(cd->cpdata->ts_pinctrl);
+		cd->cpdata->ts_pinctrl = NULL;
+		goto error_pinctrl_get;
+	}
+
 	/* Call platform init function */
 	if (cd->cpdata->init) {
 		dev_dbg(cd->dev, "%s: Init HW\n", __func__);
@@ -2126,6 +2136,7 @@ error_startup:
 error_request_irq:
 	if (cd->cpdata->init)
 		cd->cpdata->init(cd->cpdata, 0, dev);
+error_pinctrl_get:
 error_free_xfer:
 	kfree(cd->xfer_buf);
 error_free_cd:
