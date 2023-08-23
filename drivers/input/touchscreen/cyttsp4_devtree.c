@@ -23,7 +23,7 @@
  */
 
 #include "cyttsp4_core.h"
-#include "cyttps4_devtree.h"
+#include "cyttsp4_devtree.h"
 
 #include <linux/device.h>
 #include <linux/err.h>
