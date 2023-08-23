@@ -444,7 +444,6 @@ static char *touch_setting_names[CY_IC_GRPNUM_NUM] = {
 	NULL,			/* CY_IC_GRPNUM_TTHE_REGS */
 };
 
-int avdd_gpio;
 const char *model_name;
 static struct cyttsp4_core_platform_data *create_and_get_core_pdata(
 		struct device_node *core_node)
@@ -478,24 +477,9 @@ static struct cyttsp4_core_platform_data *create_and_get_core_pdata(
 	if (!rc)
 		pdata->level_irq_udelay = value;
 
-	rc = of_property_read_u32(core_node, "cy,max_xfer_len", &value);
-	if (!rc)
-		pdata->max_xfer_len = value;
-
-	rc = of_property_read_u32(core_node, "cy,flags", &value);
-	if (!rc)
-		pdata->flags = value;
-
 	rc = of_property_read_string(core_node, "cy,pname", &model_name);
 	if (rc < 0)
 		goto fail_free;
-
-	pdata->avdd_gpio = of_get_named_gpio(core_node, "cy,avdd_gpio", 0);
-	pdata->vddo_gpio = of_get_named_gpio(core_node, "cy,vddo_gpio", 0);
-
-	rc = of_property_read_u32(core_node, "cy,easy_wakeup_gesture", &value);
-	if (!rc)
-		pdata->easy_wakeup_gesture = (u8)value;
 
 	for (i = 0; (unsigned int)i < ARRAY_SIZE(touch_setting_names); i++) {
 		if (touch_setting_names[i] == NULL)
@@ -511,13 +495,9 @@ static struct cyttsp4_core_platform_data *create_and_get_core_pdata(
 				touch_setting_names[i]);
 	}
 
-	pr_info("[TSP] %s : %s: irq_gpio:%d rst_gpio:%d level_irq_udelay:%d\n"
-		"max_xfer_len:%d flags:%d easy_wakeup_gesture:%d\n",
+	pr_info("[TSP] %s : %s: irq_gpio:%d rst_gpio:%d level_irq_udelay:%d\n",
 		CYTTSP4_I2C_NAME, __func__,
-		pdata->irq_gpio, pdata->rst_gpio, pdata->level_irq_udelay,
-		pdata->max_xfer_len, pdata->flags, pdata->easy_wakeup_gesture);
-	pr_info("[TSP] %s : %s: avdd=%d, vddo=%d", CYTTSP4_I2C_NAME, __func__,
-		pdata->avdd_gpio, pdata->vddo_gpio);
+		pdata->irq_gpio, pdata->rst_gpio, pdata->level_irq_udelay);
 
 	pdata->xres = cyttsp4_xres;
 	pdata->init = cyttsp4_init;
