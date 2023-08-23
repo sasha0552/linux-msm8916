@@ -250,6 +250,7 @@ void cyttsp4_get_touch_record_(struct device *dev, int rec_no, int *rec_abs)
 			rec_abs[abs], rec_abs[abs]);
 	}
 }
+EXPORT_SYMBOL_GPL(cyttsp4_get_touch_record_);
 
 static int cyttsp4_load_status_and_touch_regs(struct cyttsp4_core_data *cd,
 		bool optimize)
@@ -1522,6 +1523,7 @@ int _cyttsp4_subscribe_attention(struct device *dev,
 
 	return 0;
 }
+EXPORT_SYMBOL_GPL(_cyttsp4_subscribe_attention);
 
 int _cyttsp4_unsubscribe_attention(struct device *dev,
 	enum cyttsp4_atten_type type, char id, int (*func)(struct device *),
@@ -1547,6 +1549,7 @@ int _cyttsp4_unsubscribe_attention(struct device *dev,
 
 	return -ENODEV;
 }
+EXPORT_SYMBOL_GPL(_cyttsp4_unsubscribe_attention);
 
 int request_exclusive(struct cyttsp4_core_data *cd, void *ownptr,
 		int timeout_ms)
@@ -1843,6 +1846,7 @@ struct cyttsp4_sysinfo *cyttsp4_request_sysinfo_(struct device *dev)
 
 	return NULL;
 }
+EXPORT_SYMBOL_GPL(cyttsp4_request_sysinfo_);
 
 static struct cyttsp4_loader_platform_data *cyttsp4_request_loader_pdata_(
 		struct device *dev)
@@ -3501,7 +3505,6 @@ static void cyttsp4_charger_status_new(struct tsp_callbacks *cb, int connected)
 
 static void cyttsp4_register_callback(struct tsp_callbacks *cb)
 {
-	charger_callbacks = cb;
 	pr_info("%s\n", __func__);
 }
 #endif
@@ -4245,6 +4248,7 @@ int cyttsp4_core_stop(struct device *dev)
 
 	return 0;
 }
+EXPORT_SYMBOL_GPL(cyttsp4_core_stop);
 
 int cyttsp4_core_start(struct device *dev)
 {
@@ -4267,6 +4271,7 @@ int cyttsp4_core_start(struct device *dev)
 
 	return 0;
 }
+EXPORT_SYMBOL_GPL(cyttsp4_core_start);
 
 /*
  * Show Firmware version via sysfs

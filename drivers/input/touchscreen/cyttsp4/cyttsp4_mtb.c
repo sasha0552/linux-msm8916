@@ -86,3 +86,6 @@ void cyttsp4_init_function_ptrs(struct cyttsp4_mt_data *md)
 	md->mt_function.input_report = cyttsp4_input_report;
 	md->mt_function.input_register_device = cyttsp4_input_register_device;
 }
+EXPORT_SYMBOL_GPL(cyttsp4_init_function_ptrs);
+
+MODULE_LICENSE("GPL");
