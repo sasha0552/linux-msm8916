@@ -271,14 +271,6 @@ static void *create_and_get_mt_pdata(struct device_node *dev_node)
 	if (!rc)
 		pdata->flags = value;
 
-	rc = of_property_read_u32(dev_node, "cy,vkeys_x", &value);
-	if (!rc)
-		pdata->vkeys_x = value;
-
-	rc = of_property_read_u32(dev_node, "cy,vkeys_y", &value);
-	if (!rc)
-		pdata->vkeys_y = value;
-
 	/* Required fields */
 	pdata->frmwrk = create_and_get_touch_framework(dev_node);
 	if (pdata->frmwrk == NULL) {
