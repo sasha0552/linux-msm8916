@@ -31,9 +31,9 @@
 		/* GPIO 38, high-to-low edge triggered */
 		interrupts = <13 IRQ_TYPE_NONE>;
 		interrupt-parent = <&tlmm>;
-		//pinctrl-names = "pmx_ts_active","pmx_ts_suspend";
-		//pinctrl-0 = <&blsp_spi4_default &tsp_en_active &blsp_i2c5_default>;
-		//pinctrl-1 = <&blsp_spi4_sleep &tsp_en_suspend &blsp_i2c5_sleep>;
+		pinctrl-names = "pmx_ts_active", "pmx_ts_suspend";
+		pinctrl-0 = <&tsp_int_default &tsp_en_default &blsp_i2c5_default>;
+		pinctrl-1 = <&tsp_int_sleep &tsp_en_sleep &blsp_i2c5_sleep>;
 
 		cy,adapter_id = "cyttsp4_i2c_adapter";
 		cy,core {
@@ -84,4 +84,34 @@
 
 &panel {
 	compatible = "samsung,s6288a0";
+};
+
+&tlmm {
+	tsp_int_default: tsp-int-default-state {
+		pins = "gpio13";
+		function = "gpio";
+		drive-strength = <2>;
+		bias-disable;
+	};
+
+	tsp_int_sleep: tsp-int-sleep-state {
+		pins = "gpio13";
+		function = "gpio";
+		drive-strength = <2>;
+		bias-disable;
+	};
+
+	tsp_en_default: tsp-en-default-state {
+		pins = "gpio73", "gpio98";
+		function = "gpio";
+		drive-strength = <2>;
+		bias-disable;
+	};
+
+	tsp_en_sleep: tsp-en-sleep-state {
+		pins = "gpio73", "gpio98";
+		function = "gpio";
+		drive-strength = <2>;
+		bias-pull-down;
+	};
 };

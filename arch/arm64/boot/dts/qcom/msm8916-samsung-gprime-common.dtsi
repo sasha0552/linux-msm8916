@@ -77,19 +77,6 @@
 		pinctrl-names = "default";
 	};
 
-	reg_vdd_tsp_a: regulator-vdd-tsp-a {
-		compatible = "regulator-fixed";
-		regulator-name = "vdd_tsp_a";
-		regulator-min-microvolt = <3000000>;
-		regulator-max-microvolt = <3000000>;
-
-		gpio = <&tlmm 73 GPIO_ACTIVE_HIGH>;
-		enable-active-high;
-
-		pinctrl-0 = <&tsp_en_default>;
-		pinctrl-names = "default";
-	};
-
 	vibrator {
 		compatible = "gpio-vibrator";
 		enable-gpios = <&tlmm 72 GPIO_ACTIVE_HIGH>;
@@ -487,20 +474,6 @@
 
 	sdc2_cd_default: sdc2-cd-default-state {
 		pins = "gpio38";
-		function = "gpio";
-		drive-strength = <2>;
-		bias-disable;
-	};
-
-	tsp_en_default: tsp-en-default-state {
-		pins = "gpio73";
-		function = "gpio";
-		drive-strength = <2>;
-		bias-disable;
-	};
-
-	tsp_int_default: tsp-int-default-state {
-		pins = "gpio13";
 		function = "gpio";
 		drive-strength = <2>;
 		bias-disable;
