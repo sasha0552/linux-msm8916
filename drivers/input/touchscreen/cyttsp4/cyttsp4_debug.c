@@ -462,3 +462,5 @@ int cyttsp4_debug_release(struct device *dev)
 	return 0;
 }
 #endif
+
+MODULE_LICENSE("GPL");

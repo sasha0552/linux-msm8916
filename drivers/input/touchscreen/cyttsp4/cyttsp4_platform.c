@@ -186,6 +186,7 @@ int cyttsp4_xres(struct cyttsp4_core_platform_data *pdata,
 
 	return rc;
 }
+EXPORT_SYMBOL_GPL(cyttsp4_xres);
 
 int cyttsp4_init(struct cyttsp4_core_platform_data *pdata,
 		int on, struct device *dev)
@@ -222,6 +223,7 @@ int cyttsp4_init(struct cyttsp4_core_platform_data *pdata,
 		__func__, irq_gpio, on, rc);
 	return rc;
 }
+EXPORT_SYMBOL_GPL(cyttsp4_init);
 
 static int cyttsp4_wakeup(struct cyttsp4_core_platform_data *pdata,
 		struct device *dev, atomic_t *ignore_irq)
@@ -243,6 +245,7 @@ int cyttsp4_power(struct cyttsp4_core_platform_data *pdata,
 
 	return cyttsp4_sleep(pdata, dev, ignore_irq);
 }
+EXPORT_SYMBOL_GPL(cyttsp4_power);
 
 int cyttsp4_irq_stat(struct cyttsp4_core_platform_data *pdata,
 		struct device *dev)
@@ -275,3 +278,4 @@ int cyttsp4_detect(struct cyttsp4_core_platform_data *pdata,
 }
 #endif
 
+MODULE_LICENSE("GPL");
