@@ -2065,6 +2065,15 @@ struct cyttsp4 *cyttsp4_probe(const struct cyttsp4_bus_ops *ops,
 
 	dev_set_drvdata(dev, cd);
 
+	/* Get pinctrl if target uses pinctrl */
+	cd->cpdata->ts_pinctrl = devm_pinctrl_get(cd->dev);
+	if (IS_ERR_OR_NULL(cd->cpdata->ts_pinctrl)) {
+		pr_err("[TSP] Target does not use pinctrl\n");
+		rc = PTR_ERR(cd->cpdata->ts_pinctrl);
+		cd->cpdata->ts_pinctrl = NULL;
+		return rc;
+	}
+
 	/* Call platform init function */
 	if (cd->cpdata->init) {
 		dev_dbg(cd->dev, "%s: Init HW\n", __func__);
