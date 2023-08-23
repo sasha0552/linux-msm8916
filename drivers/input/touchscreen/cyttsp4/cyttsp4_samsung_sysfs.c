@@ -1211,6 +1211,7 @@ error_return:
 	dev_err(dev, "%s failed. rc=%d\n", __func__, rc);
 	return rc;
 }
+EXPORT_SYMBOL_GPL(cyttsp4_samsung_sysfs_probe);
 
 int cyttsp4_samsung_sysfs_release(struct device *dev)
 {
@@ -1247,4 +1248,7 @@ int cyttsp4_samsung_sysfs_release(struct device *dev)
 
 	return 0;
 }
+EXPORT_SYMBOL_GPL(cyttsp4_samsung_sysfs_release);
 
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Cypress");

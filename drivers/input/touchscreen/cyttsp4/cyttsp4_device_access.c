@@ -2007,6 +2007,7 @@ int cyttsp4_device_access_probe(struct device *dev)
 	dev_err(dev, "%s failed.\n", __func__);
 	return rc;
 }
+EXPORT_SYMBOL_GPL(cyttsp4_device_access_probe);
 
 int cyttsp4_device_access_release(struct device *dev)
 {
@@ -2037,4 +2038,7 @@ int cyttsp4_device_access_release(struct device *dev)
 	kfree(dad);
 	return 0;
 }
+EXPORT_SYMBOL_GPL(cyttsp4_device_access_release);
 
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Cypress");

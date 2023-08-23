@@ -696,6 +696,7 @@ error_no_pdata:
 	dev_err(dev, "%s failed.\n", __func__);
 	return rc;
 }
+EXPORT_SYMBOL_GPL(cyttsp4_mt_probe);
 
 int cyttsp4_mt_release(struct device *dev)
 {
@@ -714,3 +715,7 @@ int cyttsp4_mt_release(struct device *dev)
 
 	return 0;
 }
+EXPORT_SYMBOL_GPL(cyttsp4_mt_release);
+
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Cypress");

@@ -1987,6 +1987,7 @@ error_no_pdata:
 	dev_err(dev, "%s failed.\n", __func__);
 	return rc;
 }
+EXPORT_SYMBOL_GPL(cyttsp4_loader_probe);
 
 int cyttsp4_loader_release(struct device *dev)
 {
@@ -2017,4 +2018,7 @@ int cyttsp4_loader_release(struct device *dev)
 	kfree(ld);
 	return rc;
 }
+EXPORT_SYMBOL_GPL(cyttsp4_loader_release);
 
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Cypress");

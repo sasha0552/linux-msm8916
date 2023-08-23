@@ -440,6 +440,7 @@ cyttsp4_debug_probe_alloc_failed:
 	dev_err(dev, "%s failed.\n", __func__);
 	return rc;
 }
+EXPORT_SYMBOL_GPL(cyttsp4_debug_probe);
 
 int cyttsp4_debug_release(struct device *dev)
 {
@@ -461,4 +462,8 @@ int cyttsp4_debug_release(struct device *dev)
 
 	return 0;
 }
+EXPORT_SYMBOL_GPL(cyttsp4_debug_release);
 #endif
+
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Cypress");
