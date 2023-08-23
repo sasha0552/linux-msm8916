@@ -22,12 +22,14 @@
  *
  */
 
+#include "cyttsp4_core.h"
+#include "cyttps4_devtree.h"
+
 #include <linux/device.h>
 #include <linux/err.h>
 #include <linux/of_device.h>
 #include <linux/slab.h>
 #include <linux/platform_data/cyttsp4.h>
-
 #include <linux/of_gpio.h>
 #define ENABLE_VIRTUAL_KEYS
 
@@ -697,7 +699,6 @@ int cyttsp4_devtree_create_and_get_pdata(struct device *adap_dev)
 			}
 			break;
 		}
-		pdata->loader_pdata = &_cyttsp4_loader_platform_data;
 	}
 
 	pr_debug("%s: %d child node(s) found\n", __func__, count);
