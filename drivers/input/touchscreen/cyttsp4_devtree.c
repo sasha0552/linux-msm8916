@@ -37,8 +37,6 @@
 
 enum cyttsp4_device_type {
 	DEVICE_MT,
-	DEVICE_BTN,
-	DEVICE_PROXIMITY,
 	DEVICE_TYPE_MAX,
 };
 
@@ -321,91 +319,10 @@ static void free_mt_pdata(void *pdata)
 	kfree(ext_mt_pdata);
 }
 
-static void *create_and_get_btn_pdata(struct device_node *dev_node)
-{
-	struct cyttsp4_btn_platform_data *pdata;
-	int rc;
-
-	pdata = kzalloc(sizeof(*pdata), GFP_KERNEL);
-	if (pdata == NULL) {
-		rc = -ENOMEM;
-		goto fail;
-	}
-
-	rc = get_inp_dev_name(dev_node, &pdata->inp_dev_name);
-	if (rc)
-		goto fail_free_pdata;
-
-	return pdata;
-
-fail_free_pdata:
-	kfree(pdata);
-fail:
-	return ERR_PTR(rc);
-}
-
-static void free_btn_pdata(void *pdata)
-{
-	struct cyttsp4_btn_platform_data *btn_pdata =
-		(struct cyttsp4_btn_platform_data *)pdata;
-
-	kfree(btn_pdata);
-}
-
-static void *create_and_get_proximity_pdata(struct device_node *dev_node)
-{
-	struct cyttsp4_proximity_platform_data *pdata;
-	int rc;
-
-	pdata = kzalloc(sizeof(*pdata), GFP_KERNEL);
-	if (pdata == NULL) {
-		rc = -ENOMEM;
-		goto fail;
-	}
-
-	rc = get_inp_dev_name(dev_node, &pdata->inp_dev_name);
-	if (rc)
-		goto fail_free_pdata;
-
-	pdata->frmwrk = create_and_get_touch_framework(dev_node);
-	if (pdata->frmwrk == NULL) {
-		rc = -EINVAL;
-		goto fail_free_pdata;
-	} else if (IS_ERR(pdata->frmwrk)) {
-		rc = PTR_ERR(pdata->frmwrk);
-		goto fail_free_pdata;
-	}
-
-	return pdata;
-
-fail_free_pdata:
-	kfree(pdata);
-fail:
-	return ERR_PTR(rc);
-}
-
-static void free_proximity_pdata(void *pdata)
-{
-	struct cyttsp4_proximity_platform_data *proximity_pdata =
-		(struct cyttsp4_proximity_platform_data *)pdata;
-
-	free_touch_framework(proximity_pdata->frmwrk);
-
-	kfree(proximity_pdata);
-}
-
 static struct cyttsp4_device_pdata_func device_pdata_funcs[DEVICE_TYPE_MAX] = {
 	[DEVICE_MT] = {
 		.create_and_get_pdata = create_and_get_mt_pdata,
 		.free_pdata = free_mt_pdata,
-	},
-	[DEVICE_BTN] = {
-		.create_and_get_pdata = create_and_get_btn_pdata,
-		.free_pdata = free_btn_pdata,
-	},
-	[DEVICE_PROXIMITY] = {
-		.create_and_get_pdata = create_and_get_proximity_pdata,
-		.free_pdata = free_proximity_pdata,
 	},
 };
 
@@ -413,15 +330,11 @@ static struct cyttsp5_pdata_ptr pdata_ptr[DEVICE_TYPE_MAX];
 
 static const char *device_names[DEVICE_TYPE_MAX] = {
 	[DEVICE_MT] = "cy,mt",
-	[DEVICE_BTN] = "cy,btn",
-	[DEVICE_PROXIMITY] = "cy,proximity",
 };
 
 static void set_pdata_ptr(struct cyttsp4_platform_data *pdata)
 {
 	pdata_ptr[DEVICE_MT].pdata = (void **)&pdata->mt_pdata;
-	pdata_ptr[DEVICE_BTN].pdata = (void **)&pdata->btn_pdata;
-	pdata_ptr[DEVICE_PROXIMITY].pdata = (void **)&pdata->prox_pdata;
 }
 
 static int get_device_type(struct device_node *dev_node,
