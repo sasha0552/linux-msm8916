@@ -341,3 +341,6 @@ int cyttsp4_btn_release(struct device *dev)
 
 	return 0;
 }
+EXPORT_SYMBOL_GPL(cyttsp4_btn_release);
+
+MODULE_LICENSE("GPL");
