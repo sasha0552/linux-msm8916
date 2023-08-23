@@ -87,7 +87,8 @@
 		enable-active-high;
 
 		pinctrl-0 = <&tsp_en_default>;
-		pinctrl-names = "default";
+		pinctrl-1 = <&tsp_en_sleep>;
+		pinctrl-names = "default", "sleep";
 	};
 
 	vibrator {
@@ -493,13 +494,27 @@
 	};
 
 	tsp_en_default: tsp-en-default-state {
-		pins = "gpio73";
+		pins = "gpio73", "gpio98";
 		function = "gpio";
 		drive-strength = <2>;
 		bias-disable;
 	};
 
+	tsp_en_sleep: tsp-en-sleep-state {
+		pins = "gpio73", "gpio98";
+		function = "gpio";
+		drive-strength = <2>;
+		bias-pull-down;
+	};
+
 	tsp_int_default: tsp-int-default-state {
+		pins = "gpio13";
+		function = "gpio";
+		drive-strength = <2>;
+		bias-disable;
+	};
+
+	tsp_int_sleep: tsp-int-sleep-state {
 		pins = "gpio13";
 		function = "gpio";
 		drive-strength = <2>;
