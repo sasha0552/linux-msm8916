@@ -32,8 +32,8 @@
 		interrupts = <13 IRQ_TYPE_NONE>;
 		interrupt-parent = <&tlmm>;
 		pinctrl-names = "pmx_ts_active", "pmx_ts_suspend";
-		pinctrl-0 = <&tsp_int_default &tsp_en_default &blsp_i2c5_default>;
-		pinctrl-1 = <&tsp_int_sleep &tsp_en_sleep &blsp_i2c5_sleep>;
+		pinctrl-0 = <&tsp_int_default &tsp_en_default>;
+		pinctrl-1 = <&tsp_int_sleep &tsp_en_sleep>;
 
 		cy,adapter_id = "cyttsp4_i2c_adapter";
 		cy,core {
