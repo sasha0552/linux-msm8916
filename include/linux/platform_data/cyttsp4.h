@@ -52,6 +52,8 @@ struct cyttsp4_core_platform_data {
 	int (*irq_stat)(struct cyttsp4_core_platform_data *pdata,
 		struct device *dev);
 	struct touch_settings *sett[CY_TOUCH_SETTINGS_MAX];
+	int avdd_gpio;
+	int vddo_gpio;
 };
 
 struct cyttsp4_platform_data {

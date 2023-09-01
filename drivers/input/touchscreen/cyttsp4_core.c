@@ -13,6 +13,7 @@
  */
 
 #include "cyttsp4_core.h"
+#include "cyttp4_cpdp.h"
 #include <linux/delay.h>
 #include <linux/gpio.h>
 #include <linux/input/mt.h>
@@ -2015,7 +2016,7 @@ struct cyttsp4 *cyttsp4_probe(const struct cyttsp4_bus_ops *ops,
 		struct device *dev, u16 irq, size_t xfer_buf_size)
 {
 	struct cyttsp4 *cd;
-	struct cyttsp4_platform_data *pdata = dev_get_platdata(dev);
+	struct cyttsp4_platform_data *pdata = cyttsp4_dev_get_platdata(dev);
 	unsigned long irq_flags;
 	int rc = 0;
 
